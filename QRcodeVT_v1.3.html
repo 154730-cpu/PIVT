@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>QRcodeVT</title>
+    <link rel="icon" href="logoQ.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        a {
+            text-decoration: none;
+        }
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 40%;
+        }
+        input[type="text"]{
+            background-color: #FFFFFF;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 40%;
+             box-sizing: border-box;
+         }
+        #qrcode {
+            margin-top: 20px;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            input[type="text"]{
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>QRcodeVT©</h1>
+
+    <input type="text" id="text" placeholder="Enter text or URL here" oninput="generateQRCode()">
+    <br>
+    <div id="qrcode"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        function generateQRCode() {
+            const qrContainer = document.getElementById("qrcode");
+            const text = document.getElementById("text").value.trim();
+            qrContainer.innerHTML = "";
+
+            if (text === "") {
+                return;
+            }
+
+            new QRCode(qrContainer, {
+                text: text,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+    </script>
+</body>
+</html>

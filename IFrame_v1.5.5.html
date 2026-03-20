@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>IFrameVT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+        }
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        input[type="text"], button {
+            background-color: #ffffff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 40%;
+             box-sizing: border-box;
+         }
+        iframe {
+            width: 90%;
+            height: 800px;
+            border: 2px solid #cccccc;
+        }
+        .real-url-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 40%;
+        }
+        input[type="checkbox"]{
+            accent-color: #64bd3a;
+            padding: 15px;
+            cursor: pointer;
+         }
+        
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            button {
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+            input[type="text"]{
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+        }
+    </style>
+
+    <script>
+    function updateTitle() {
+      const input = document.getElementById("Name").value;
+      document.title = input; // Sets the <title> to input value
+    }
+
+    function updateFavicon() {
+        const input = document.getElementById("Image").value;
+
+        let favicon = document.querySelector("link[rel~='icon']");
+        if (!favicon) {
+            favicon = document.createElement("link");
+            favicon.rel = "icon";
+            document.head.appendChild(favicon);
+        }
+        favicon.href = input;
+    }
+
+    function updateIframe() {
+        const url = document.getElementById("IFrame_input").value;
+        const iframe = document.getElementById("IFrame");
+        
+        if (url && url.startsWith("http")) {
+            iframe.src = url;
+        }
+    }
+    function redirect() {
+        const realInput = document.getElementById('Real_input');
+        const checkbox = document.getElementById('useRealURL');
+        const url = realInput.value.trim();
+        if (!url) return;
+        if (!checkbox.checked) return;
+        window.location.href = url;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+    const realInput = document.getElementById('Real_input');
+    realInput.addEventListener('blur', redirect);
+    window.addEventListener('focus', () => {
+        if (document.activeElement === realInput) return;
+            redirect();
+        });
+    });
+
+    // saving
+    document.addEventListener('DOMContentLoaded', () => {
+    const fields = ['Name', 'Image', 'Real_input', 'IFrame_input'];
+
+    fields.forEach(id => {
+        const saved = localStorage.getItem(id);
+        if (saved) {
+            document.getElementById(id).value = saved;
+        }
+    });
+
+        fields.forEach(id => {
+            const el = document.getElementById(id);
+            el.addEventListener('input', () => {
+                localStorage.setItem(id, el.value);
+            });
+        });
+    });
+
+    </script>
+    
+    <link rel="icon" href="logoI.png">
+</head>
+<body>
+    <h1>IFrameVT©</h1>
+    <input type="text" id="Name" placeholder="Name" onblur="updateTitle()"/>
+    <input type="text" id="Image" placeholder="Enter image URL" onblur="updateFavicon()">
+    <div class="real-url-container">
+        <input type="text" id="Real_input" placeholder="Enter Real URL" />
+        <input type="checkbox" id="useRealURL" onblur="redirect()" />
+    </div>
+    <input type="text" id="IFrame_input" placeholder="IFrame URL" onblur="updateIframe()"/>
+    <p>Some websites are not able to go through IFrame.</p>
+    <iframe id="IFrame" src="" loading="lazy" allowfullscreen></iframe>
+    <!-- this is copyrighted. any copys of this html file without permission wil be removed from your account. 
+    copys: see PortaalVT-->
+</body>
+</html>

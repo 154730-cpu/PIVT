@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>PomodoroVT</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow: hidden;
+            background: #f4f4f4;
+        }
+        header {
+            background-color: #333333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 50px);
+        }
+
+        #timer {
+            font-size: 64px;
+            margin: 20px;
+        }
+
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 40%;
+        }
+
+        #status {
+            margin-top: 15px;
+            color: #76340D;
+            font-size: 14px;
+        }
+
+        #gameFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            button {
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+        }
+    </style>
+    <link rel="icon" href="logopm.png">
+</head>
+<body>
+    <div id="container">
+        <h1>PomodoroVT©</h1>
+        <div id="timer">25:00</div>
+        <button id="startBtn">Start Focus Session</button>
+        <div id="status"></div>
+    </div>
+    <iframe id="gameFrame" src="https://castle.xyz/@castle" allowfullscreen></iframe>
+    <script>
+        let focusTime = 25 * 60; // 25 mins
+        let currentTime = focusTime;
+        let timerInterval = null;
+        let isRunning = false;
+        let honestFocus = true;
+
+        const timerDisplay = document.getElementById('timer');
+        const statusText = document.getElementById('status');
+        const gameFrame = document.getElementById('gameFrame');
+        const startBtn = document.getElementById('startBtn');
+        const container = document.getElementById('container');
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const sec = (seconds % 60).toString().padStart(2, '0');
+            return `${min}:${sec}`;
+        }
+
+        function updateTimerDisplay() {
+            timerDisplay.textContent = formatTime(currentTime);
+        }
+
+        function startFocusSession() {
+            if (isRunning) return;
+
+            isRunning = true;
+            honestFocus = true;
+            currentTime = focusTime;
+            updateTimerDisplay();
+            statusText.textContent = "Focus started. Don't switch tabs, click around, or cheat.";
+            startBtn.style.display = 'none';
+
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+
+            timerInterval = setInterval(() => {
+                if (currentTime > 0 && honestFocus) {
+                    currentTime--;
+                    updateTimerDisplay();
+                } else if (currentTime <= 0 && honestFocus) {
+                    completeSession();
+                }
+            }, 1000);
+        }
+
+        function completeSession() {
+            clearInterval(timerInterval);
+            statusText.textContent = "✅ Session complete! Game unlocked.";
+            container.style.display = 'none';
+            gameFrame.style.display = 'block';
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+
+        function cheatDetected(reason) {
+            if (!isRunning) return;
+            clearInterval(timerInterval);
+            isRunning = false;
+            honestFocus = false;
+            currentTime = focusTime;
+            updateTimerDisplay();
+            statusText.textContent = `❌ Cheating detected: ${reason}. Try again.`;
+            startBtn.style.display = 'block';
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+            cheatDetected("You left the tab");
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            const allowedElements = [startBtn];
+            if (isRunning && !allowedElements.includes(e.target)) {
+            cheatDetected("You clicked something outside the timer");
+            }
+        });
+
+        window.addEventListener('blur', () => cheatDetected("You switched tabs or minimized"));
+
+        startBtn.addEventListener("click", startFocusSession);
+        updateTimerDisplay();
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                cheatDetected("You pressed Esc (exited fullscreen)");
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            if (isRunning && !document.fullscreenElement) {
+            cheatDetected("You exited fullscreen mode");
+            }
+        });
+
+    </script>
+    <!-- this is copyrighted. any copys of this html file without permission wil be removed from your account. 
+    copys: see PortaalVT-->
+</body>
+</html>
