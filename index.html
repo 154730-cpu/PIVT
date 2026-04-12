@@ -81,6 +81,14 @@
             }
         }
     </style>
+    <script>
+        window.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key.toLowerCase() === 'h') {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+            }
+        }, true);
+    </script>
 </head>
 <body>
     <h1>PortaalVT</h1>
@@ -89,7 +97,7 @@
         <a href="https://chatgpt.com/" target="_blank"><button class="game">ChatGPT</button></a>
         <a href="https://www.youtube.com" target="_blank"><button>Youtube</button></a>
         <a href="https://outlook.office.com/mail/" target="_blank"><button>Outlook</button></a>
-        <a href="https://teams.microsoft.com/v2/" target="_blank"><button>Teams</button></a>
+        <a href="https://teams.cloud.microsoft/" target="_blank"><button>Teams</button></a>
         <a href="https://word.cloud.microsoft/?wdOrigin=SHAREPOINT.SHELL" target="_blank"><button>Word</button></a>
         <a href="https://www.microsoft365.com/launch/powerpoint?auth=2" target="_blank"><button>PowerPoint</button></a>
         <a href="https://forms.office.com/Pages/DesignPageV2.aspx?origin=Marketing" target="_blank"><button>Forms</button></a>
