@@ -62,6 +62,22 @@
             transition: background-color 0.3s;
             width: 100%;
         }
+        input[type="text"]{
+            background-color: #f4f4f4;
+            color: #000000;
+            outline: none;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            padding: 30px;
+            font-size: 32px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+        input[type="text"]::placeholder {
+            font-weight: bold;
+        }
         @media (prefers-color-scheme: dark) {
             body {
                 background-color: #121212;
@@ -79,6 +95,10 @@
                 background-color: #1f8a4c
                 color: #ffffff;
             }
+            input[type="text"] {
+                background-color: #121212;
+                color: #ffffff;
+            }
         }
     </style>
     <script>
@@ -88,10 +108,24 @@
                 e.preventDefault();
             }
         }, true);
+        function search() {
+            const query = document.getElementById("text").value.toLowerCase();
+            const links = document.querySelectorAll("a");
+
+            links.forEach(link => {
+                const text = link.innerText.toLowerCase();
+
+                if (text.includes(query)) {
+                    link.style.display = "";
+                } else {
+                    link.style.display = "none";
+                }
+            });
+        }
     </script>
 </head>
 <body>
-    <h1>PortaalVT</h1>
+    <input type="text" id="text" placeholder="PortaalVT" oninput="search()">
     <div class="grid">
         <a href="https://janarentsz.sharepoint.com/sites/leerlingportaal" target="_blank"><button>Portaal</button></a>
         <a href="https://chatgpt.com/" target="_blank"><button class="game">ChatGPT</button></a>
