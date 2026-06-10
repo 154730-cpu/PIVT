@@ -10,6 +10,14 @@ By accessing or using PortaalVT and/or PIVT, you acknowledge and agree to these 
 
 PortaalVT and PIVT is an open-source project. The source code is made available under the applicable open-source license included in this repository.
 
+## Community Request
+
+PortaalVT is an open-source project developed and maintained by volunteers. While the software may be shared and redistributed in accordance with its license, we kindly ask that you avoid redistributing unofficial copies whenever possible.
+
+Instead, please direct others to the official repository. This helps ensure users receive the latest updates, security fixes, and documentation, while also supporting the continued development of the project.
+
+Thank you for supporting PortaalVT and the open-source community.
+
 ## Permitted Use
 
 You may use PortaalVT and/or PIVT in accordance with these Terms and all applicable laws and regulations.
