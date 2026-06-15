@@ -22,9 +22,15 @@ Thank you for supporting PortaalVT and the open-source community.
 
 You may use PortaalVT and/or PIVT in accordance with these Terms and all applicable laws and regulations.
 
-## No Promotion of Gaming
+## User Responsibility
 
 PortaalVT and PIVT are not intended to promote, encourage, endorse, advertise, or facilitate gaming activities. The maintainers do not promote gaming in any form through these projects. Any use of the software in connection with gaming-related activities is solely the responsibility of the user and does not imply endorsement by the project or its maintainers.
+
+solely users are are responsible for their use of portaalVT and/or PIVT.
+
+The software must be used in compliance with applicable laws, regulations, organizational policies, and third-party terms of service. The maintainers do not endorse, encourage, or assume responsibility for any use of the software that violates such requirements.
+
+Any actions performed using the software are undertaken solely at the user's own risk and responsibility.
 
 ## No Warranty
 
