@@ -22,6 +22,10 @@ Thank you for supporting PortaalVT and the open-source community.
 
 You may use PortaalVT and/or PIVT in accordance with these Terms and all applicable laws and regulations.
 
+## No Promotion of Gaming
+
+PortaalVT and PIVT are not intended to promote, encourage, endorse, advertise, or facilitate gaming activities. The maintainers do not promote gaming in any form through these projects. Any use of the software in connection with gaming-related activities is solely the responsibility of the user and does not imply endorsement by the project or its maintainers.
+
 ## No Warranty
 
 PortaalVT and PIVT is provided "as is" and "as available" without warranties of any kind, whether express or implied.
