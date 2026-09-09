@@ -93,6 +93,107 @@
         input[type="text"]::placeholder {
             font-weight: bold;
         }
+        /* --- Filter button + panel --- */
+        .filter-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            width: auto;
+            padding: 10px 14px;
+            font-size: 14px;
+            border-radius: 6px;
+            background-color: #333333;
+            color: white;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-toggle .badge {
+            background-color: #4183c4;
+            color: white;
+            border-radius: 999px;
+            font-size: 11px;
+            padding: 1px 7px;
+            display: none;
+        }
+        .filter-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 99;
+            display: none;
+        }
+        .filter-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 260px;
+            max-width: 85vw;
+            background-color: #ffffff;
+            color: #333333;
+            box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+            z-index: 101;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.25s ease;
+        }
+        .filter-panel.open {
+            transform: translateX(0);
+        }
+        .filter-overlay.open {
+            display: block;
+        }
+        .filter-panel h2 {
+            font-size: 18px;
+            margin: 0 0 4px 0;
+        }
+        .filter-panel .sub {
+            font-size: 12px;
+            color: #777777;
+            margin: 0 0 16px 0;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .filter-actions button {
+            font-size: 13px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .filter-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1;
+            border-radius: 50%;
+        }
+
         @media (prefers-color-scheme: dark) {
             body {
                 background-color: #121212;
@@ -118,6 +219,20 @@
                 background-color: #121212;
                 color: #ffffff;
             }
+            .filter-toggle {
+                background-color: #2a2a2a;
+                color: #ffffff;
+            }
+            .filter-panel {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            .filter-panel .sub {
+                color: #999999;
+            }
+            .filter-option {
+                border-bottom: 1px solid #2c2c2c;
+            }
         }
     </style>
     <script>
@@ -127,76 +242,148 @@
                 e.preventDefault();
             }
         }, true);
+
         function search() {
+            applyFilters();
+        }
+
+        function getSelectedCategories() {
+            const boxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+            const selected = [];
+            boxes.forEach(box => {
+                if (box.checked) selected.push(box.value);
+            });
+            return selected;
+        }
+
+        function applyFilters() {
             const query = document.getElementById("text").value.toLowerCase();
-            const links = document.querySelectorAll("a");
+            const selected = getSelectedCategories();
+            const links = document.querySelectorAll(".grid a");
 
             links.forEach(link => {
                 const text = link.innerText.toLowerCase();
+                const tags = (link.dataset.tags || "").split(" ");
+                const matchesSearch = text.includes(query);
+                const matchesFilter = selected.length === 0 || selected.some(cat => tags.includes(cat));
 
-                if (text.includes(query)) {
-                    link.style.display = "";
-                } else {
-                    link.style.display = "none";
-                }
+                link.style.display = (matchesSearch && matchesFilter) ? "" : "none";
             });
+
+            updateBadge(selected.length);
         }
+
+        function updateBadge(count) {
+            const badge = document.getElementById("filterBadge");
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = "inline-block";
+            } else {
+                badge.style.display = "none";
+            }
+        }
+
+        function toggleFilterPanel() {
+            document.getElementById("filterPanel").classList.toggle("open");
+            document.getElementById("filterOverlay").classList.toggle("open");
+        }
+
+        function closeFilterPanel() {
+            document.getElementById("filterPanel").classList.remove("open");
+            document.getElementById("filterOverlay").classList.remove("open");
+        }
+
+        function clearFilters() {
+            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(box => box.checked = true);
+            applyFilters();
+        }
+
+        window.addEventListener('DOMContentLoaded', applyFilters);
     </script>
 </head>
 <body>
+    <button class="filter-toggle" onclick="toggleFilterPanel()">
+        Filters
+    </button>
+    <div class="filter-overlay" id="filterOverlay" onclick="closeFilterPanel()"></div>
+    <div class="filter-panel" id="filterPanel">
+        <button class="filter-close" onclick="closeFilterPanel()">&times;</button>
+        <h2>Filter op vak</h2>
+        <p class="sub">Selecteer een of meer vakken om alleen de bijbehorende knoppen te tonen.</p>
+
+        <label class="filter-option"><input type="checkbox" value="WiB" onchange="applyFilters()" checked> WiB</label>
+        <label class="filter-option"><input type="checkbox" value="nederlands" onchange="applyFilters()" checked> Nederlands</label>
+        <label class="filter-option"><input type="checkbox" value="biologie" onchange="applyFilters()" checked> Biologie</label>
+        <label class="filter-option"><input type="checkbox" value="engels" onchange="applyFilters()" checked> Engels</label>
+        <label class="filter-option"><input type="checkbox" value="informatica" onchange="applyFilters()" checked> Informatica</label>
+        <label class="filter-option"><input type="checkbox" value="economie" onchange="applyFilters()" checked> Economie</label>
+        <label class="filter-option"><input type="checkbox" value="WiD" onchange="applyFilters()" checked> WiD</label>
+        <label class="filter-option"><input type="checkbox" value="games" onchange="applyFilters()" checked> Games</label>
+        <label class="filter-option"><input type="checkbox" value="algemeen" onchange="applyFilters()" checked> Algemeen</label>
+        <label class="filter-option"><input type="checkbox" value="muziek" onchange="applyFilters()" checked> Muziek</label>
+        <label class="filter-option"><input type="checkbox" value="oo" onchange="applyFilters()" checked> O&O</label>
+        <label class="filter-option"><input type="checkbox" value="frans" onchange="applyFilters()" checked> Frans</label>
+        <label class="filter-option"><input type="checkbox" value="frans" onchange="applyFilters()" checked> Frans</label>
+        
+        <div class="filter-actions">
+            <button onclick="clearFilters()">Wis filters</button>
+            <button onclick="closeFilterPanel()">Toepassen</button>
+        </div>
+    </div>
+
     <input type="text" id="text" placeholder="PortaalVT" oninput="search()">
     <div class="grid">
-        <a href="https://janarentsz.sharepoint.com/sites/leerlingportaal" target="_blank"><button>Portaal</button></a>
-        <a href="https://chatgpt.com/" target="_blank"><button class="game">ChatGPT</button></a>
-        <a href="https://www.youtube.com" target="_blank"><button>Youtube</button></a>
-        <a href="https://outlook.office.com/mail/" target="_blank"><button>Outlook</button></a>
-        <a href="https://teams.cloud.microsoft/" target="_blank"><button>Teams</button></a>
-        <a href="https://word.cloud.microsoft/?wdOrigin=SHAREPOINT.SHELL" target="_blank"><button>Word</button></a>
-        <a href="https://www.microsoft365.com/launch/powerpoint?auth=2" target="_blank"><button>PowerPoint</button></a>
-        <a href="https://forms.office.com/Pages/DesignPageV2.aspx?origin=Marketing" target="_blank"><button>Forms</button></a>
-        <a href="https://www.microsoft365.com/launch/excel?auth=2" target="_blank"><button>Excel</button></a>
-        <a href="https://docs.google.com/document/u/0/?tgif=c" target="_blank"><button>Docs</button></a>
-        <a href="https://docs.google.com/presentation/u/0/?ec=wgc-slides-globalnav-goto&tgif=d" target="_blank"><button>Presentaties</button></a>
-        <a href="https://ja.magister.net/magister/#/vandaag" target="_blank"><button>Magister</button></a>
-        <a href="https://elo.ja.nl/my/courses.php" target="_blank"><button>Moodle</button></a>
-        <a href="https://lessonup.app/" target="_blank"><button>LessonUp</button></a>
-        <a href="https://dashboard.blooket.com/my-sets" target="_blank"><button>Blooket</button></a>
-        <a href="https://kahoot.it/" target="_blank"><button>Kahoot</button></a>
-        <a href="https://quizlet.com/latest" target="_blank"><button>Quizlet</button></a>
-        <a href="https://www.desmos.com/calculator?lang=nl" target="_blank"><button>Desmos</button></a>
-        <a href="https://www.tinkercad.com/dashboard" target="_blank"><button>Tinkercad</button></a>
-        <a href="https://154730-cpu.github.io/PIVT/IFrame_v1.5.5.html" target="_blank"><button>IFrame</button></a>
-        <a href="https://154730-cpu.github.io/PIVT/Pomodoro_v1.0.html" target="_blank"><button>Pomodoro</button></a>
-        <a href="https://154730-cpu.github.io/PIVT/QRcode_v1.3.html" target="_blank"><button>QRCode</button></a>
-        <a href="https://www.canva.com/" target="_blank"><button>Canva</button></a>
-        <a href="https://crazygames.com" target="_blank"><button class="game">Crazygames</button></a>
-        <a href="https://poki.com/nl" target="_blank"><button class="game">Poki</button></a>
-        <a href="https://garticphone.com/nl" target="_blank"><button class="game">Gartic Phone</button></a>
-        <a href="https://openfront.io/" target="_blank"><button class="game">Openfront</button></a>
-        <a href="https://shellshock.io/" target="_blank"><button class="game">Shell Shockers</button></a>
-        <a href="https://rocketbotroyale2.winterpixel.io/" target="_blank"><button class="game">Rocket bot</button></a>
-        <a href="https://neal.fun/infinite-craft/" target="_blank"><button class="game">Inf Craft</button></a>
-        <a href="https://www.chess.com/play/computer" target="_blank"><button class="game">Chess.com</button></a>
-        <a href="https://scratch.mit.edu/explore/projects/all" target="_blank"><button class="game">Scratch</button></a>
-        <a href="https://territorial.io/" target="_blank"><button class="game">Territorial</button></a>
-        <a href="https://castle.xyz/@krokogames" target="_blank"><button class="game">Castle</button></a>
-        <a href="https://www.online-python.com/" target="_blank"><button>Python</button></a>
-        <a href="https://my.numworks.com/python/" target="_blank"><button>Numworks</button></a>
-        <a href="https://apps.noordhoff.nl/my/nl/bookshelf?redirectPath=%2F&redirectPlatform=sep" target="_blank"><button>Noordhof/WiD</button></a>
-        <a href="https://unicodes.jessetane.com/%C2%9F" target="_blank"><button>Unicodes</button></a>
-        <a href="https://texteditor.co/" target="_blank"><button>Text Editor</button></a>
-        <a href="https://www.ravbug.com/hypertranslate/" target="_blank"><button>Hypertranslate</button></a>
-        <a href="https://www.pixilart.com/" target="_blank"><button>Pixilart</button></a>
-        <a href="https://edition.thiememeulenhoff.nl/secure/next/arrangement/interface_e4_v3?tab=contents" target="_blank"><button class="glitch">Thiememeulenhof</button></a>
-        <a href="https://app.cumulus.co/klassen/52458" target="_blank"><button>Cumulus</button></a>
-        <a href="https://biologiepagina.nl/" target="_blank"><button>Biologiepagina</button></a>
-        <a href="https://studygo.com/nl/learn/books/1618/new-interface-onderbouw-lrn-line-(4e-editie)-3-vwo-4e-editie" target="_blank"><button>Studygo</button></a>
-        <a href="https://app.woots.nl/" target="_blank"><button>Woots</button></a>
-        <a href="https://www.bandlab.com/feed/trending" target="_blank"><button>BandLab</button></a>
-        <a href="https://tool.catwise.nl/my-ratings" target="_blank"><button>Catwise</button></a>
-        <a href="https://github.com/154730-cpu/PIVT/blob/main/index.html" target="_blank"><button class="github">Github</button></a>
-        <a href="https://trello.com/nl" target="_blank"><button>Trello</button></a>
-        <a href="https://www.verbuga.eu/Mise/Mise.html" target="_blank"><button>Verbuga</button></a>
+        <a href="https://janarentsz.sharepoint.com/sites/leerlingportaal" target="_blank" data-tags="algemeen"><button>Portaal</button></a>
+        <a href="https://chatgpt.com/" target="_blank" data-tags="algemeen"><button class="game">ChatGPT</button></a>
+        <a href="https://www.youtube.com" target="_blank" data-tags="algemeen"><button>Youtube</button></a>
+        <a href="https://outlook.office.com/mail/" target="_blank" data-tags="algemeen"><button>Outlook</button></a>
+        <a href="https://teams.cloud.microsoft/" target="_blank" data-tags="algemeen"><button>Teams</button></a>
+        <a href="https://word.cloud.microsoft/?wdOrigin=SHAREPOINT.SHELL" target="_blank" data-tags="algemeen"><button>Word</button></a>
+        <a href="https://www.microsoft365.com/launch/powerpoint?auth=2" target="_blank" data-tags="algemeen"><button>PowerPoint</button></a>
+        <a href="https://forms.office.com/Pages/DesignPageV2.aspx?origin=Marketing" target="_blank" data-tags="algemeen"><button>Forms</button></a>
+        <a href="https://www.microsoft365.com/launch/excel?auth=2" target="_blank" data-tags="algemeen"><button>Excel</button></a>
+        <a href="https://docs.google.com/document/u/0/?tgif=c" target="_blank" data-tags="algemeen"><button>Docs</button></a>
+        <a href="https://docs.google.com/presentation/u/0/?ec=wgc-slides-globalnav-goto&tgif=d" target="_blank" data-tags="algemeen"><button>Presentaties</button></a>
+        <a href="https://ja.magister.net/magister/#/vandaag" target="_blank" data-tags="algemeen"><button>Magister</button></a>
+        <a href="https://moodle.informatica-actief.nl/" target="_blank" data-tags="informatica"><button>iA</button></a>
+        <a href="https://lessonup.app/" target="_blank" data-tags="algemeen"><button>LessonUp</button></a>
+        <a href="https://dashboard.blooket.com/my-sets" target="_blank" data-tags="algemeen"><button>Blooket</button></a>
+        <a href="https://kahoot.it/" target="_blank" data-tags="algemeen"><button>Kahoot</button></a>
+        <a href="https://quizlet.com/latest" target="_blank" data-tags="algemeen"><button>Quizlet</button></a>
+        <a href="https://www.desmos.com/calculator?lang=nl" target="_blank" data-tags="WiB WiD"><button>Desmos</button></a>
+        <a href="https://www.tinkercad.com/dashboard" target="_blank" data-tags="oo"><button>Tinkercad</button></a>
+        <a href="https://154730-cpu.github.io/PIVT/IFrame_v1.5.5.html" target="_blank" data-tags="algemeen"><button>IFrame</button></a>
+        <a href="https://154730-cpu.github.io/PIVT/Pomodoro_v1.0.html" target="_blank" data-tags="algemeen"><button>Pomodoro</button></a>
+        <a href="https://154730-cpu.github.io/PIVT/QRcode_v1.3.html" target="_blank" data-tags="algemeen"><button>QRCode</button></a>
+        <a href="https://www.canva.com/" target="_blank" data-tags="algemeen"><button>Canva</button></a>
+        <a href="https://crazygames.com" target="_blank" data-tags="games"><button class="game">Crazygames</button></a>
+        <a href="https://poki.com/nl" target="_blank" data-tags="games"><button class="game">Poki</button></a>
+        <a href="https://garticphone.com/nl" target="_blank" data-tags="games"><button class="game">Gartic Phone</button></a>
+        <a href="https://openfront.io/" target="_blank" data-tags="games"><button class="game">Openfront</button></a>
+        <a href="https://shellshock.io/" target="_blank" data-tags="games"><button class="game">Shell Shockers</button></a>
+        <a href="https://rocketbotroyale2.winterpixel.io/" target="_blank" data-tags="games"><button class="game">Rocket bot</button></a>
+        <a href="https://neal.fun/infinite-craft/" target="_blank" data-tags="games"><button class="game">Inf Craft</button></a>
+        <a href="https://www.chess.com/play/computer" target="_blank" data-tags="games"><button class="game">Chess.com</button></a>
+        <a href="https://scratch.mit.edu/explore/projects/all" target="_blank" data-tags="games informatica"><button class="game">Scratch</button></a>
+        <a href="https://territorial.io/" target="_blank" data-tags="games"><button class="game">Territorial</button></a>
+        <a href="https://castle.xyz/@krokogames" target="_blank" data-tags="games"><button class="game">Castle</button></a>
+        <a href="https://www.online-python.com/" target="_blank" data-tags="informatica"><button>Python</button></a>
+        <a href="https://my.numworks.com/python/" target="_blank" data-tags="WiB WiD"><button>Numworks</button></a>
+        <a href="https://apps.noordhoff.nl/my/nl/bookshelf?redirectPath=%2F&redirectPlatform=sep" target="_blank" data-tags="WiD"><button>Noordhof/WiD</button></a>
+        <a href="https://unicodes.jessetane.com/%C2%9F" target="_blank" data-tags="informatica"><button>Unicodes</button></a>
+        <a href="https://texteditor.co/" target="_blank" data-tags="informatica"><button>Text Editor</button></a>
+        <a href="https://www.ravbug.com/hypertranslate/" target="_blank" data-tags="games"><button>Hypertranslate</button></a>
+        <a href="https://www.pixilart.com/" target="_blank" data-tags="games"><button>Pixilart</button></a>
+        <a href="https://edition.thiememeulenhoff.nl/secure/next/arrangement/interface_e4_v3?tab=contents" target="_blank" data-tags="engels"><button class="glitch">Thiememeulenhof</button></a>
+        <a href="https://app.cumulus.co/klassen/52458" target="_blank" data-tags="economie"><button>Cumulus</button></a>
+        <a href="https://biologiepagina.nl/" target="_blank" data-tags="biologie"><button>Biologiepagina</button></a>
+        <a href="https://studygo.com/nl/learn/books/1618/new-interface-onderbouw-lrn-line-(4e-editie)-3-vwo-4e-editie" target="_blank" data-tags="algemeen"><button>Studygo</button></a>
+        <a href="https://app.woots.nl/" target="_blank" data-tags="algemeen"><button>Woots</button></a>
+        <a href="https://www.bandlab.com/feed/trending" target="_blank" data-tags="muziek"><button>BandLab</button></a>
+        <a href="https://tool.catwise.nl/my-ratings" target="_blank" data-tags="algemeen"><button>Catwise</button></a>
+        <a href="https://github.com/154730-cpu/PIVT/blob/main/index.html" target="_blank" data-tags="informatica"><button class="github">Github</button></a>
+        <a href="https://trello.com/nl" target="_blank" data-tags="oo"><button>Trello</button></a>
+        <a href="https://www.verbuga.eu/Mise/Mise.html" target="_blank" data-tags="frans"><button>Verbuga</button></a>
     </div>
     <p>By using PortaalVT, you acknowlege and agree to the <a href="https://github.com/154730-cpu/PIVT/blob/main/TERMS_AND_CONDITIONS.md" target="_blank">Terms and Conditions.</a></p>
     <p>PortaalVT is provided on a best-effort basis. We do not guarantee that the service will be available at all times and reserve the right to modify, suspend, or discontinue any part of the service without notice.</p>
