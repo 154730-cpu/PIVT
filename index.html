@@ -204,15 +204,15 @@
                 color: #ffffff;
             }
             .glitch {
-                background-color: #8a3f1f
+                background-color: #8a3f1f;
                 color: #ffffff;
             }
             .game {
-                background-color: #1f8a4c
+                background-color: #1f8a4c;
                 color: #ffffff;
             }
             .github {
-                background-color: #4183c4
+                background-color: #4183c4;
                 color: #000000;
             }
             input[type="text"] {
@@ -256,9 +256,39 @@
             return selected;
         }
 
+        function saveFilters() {
+            const selected = getSelectedCategories();
+            try {
+                localStorage.setItem('portaalvt_filters', JSON.stringify(selected));
+            } catch (e) {
+                // localStorage unavailable (private browsing etc.) - fail silently
+            }
+        }
+
+        function loadFilters() {
+            let saved = null;
+            try {
+                saved = localStorage.getItem('portaalvt_filters');
+            } catch (e) {
+                saved = null;
+            }
+            if (saved === null) return; // nothing saved yet, keep default (all checked)
+
+            let selected;
+            try {
+                selected = JSON.parse(saved);
+            } catch (e) {
+                return;
+            }
+            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(box => {
+                box.checked = selected.includes(box.value);
+            });
+        }
+
         function applyFilters() {
             const query = document.getElementById("text").value.toLowerCase();
             const selected = getSelectedCategories();
+            const totalCategories = document.querySelectorAll('.filter-option input[type="checkbox"]').length;
             const links = document.querySelectorAll(".grid a");
 
             links.forEach(link => {
@@ -270,7 +300,7 @@
                 link.style.display = (matchesSearch && matchesFilter) ? "" : "none";
             });
 
-            updateBadge(selected.length);
+            saveFilters();
         }
 
         function updateBadge(count) {
@@ -298,12 +328,16 @@
             applyFilters();
         }
 
-        window.addEventListener('DOMContentLoaded', applyFilters);
+        window.addEventListener('DOMContentLoaded', function() {
+            loadFilters();
+            applyFilters();
+        });
     </script>
 </head>
 <body>
     <button class="filter-toggle" onclick="toggleFilterPanel()">
         Filters
+        <span class="badge" id="filterBadge"></span>
     </button>
     <div class="filter-overlay" id="filterOverlay" onclick="closeFilterPanel()"></div>
     <div class="filter-panel" id="filterPanel">
@@ -312,6 +346,7 @@
         <p class="sub">Selecteer een of meer vakken om alleen de bijbehorende knoppen te tonen.</p>
 
         <label class="filter-option"><input type="checkbox" value="WiB" onchange="applyFilters()" checked> WiB</label>
+        <label class="filter-option"><input type="checkbox" value="nederlands" onchange="applyFilters()" checked> Nederlands</label>
         <label class="filter-option"><input type="checkbox" value="biologie" onchange="applyFilters()" checked> Biologie</label>
         <label class="filter-option"><input type="checkbox" value="engels" onchange="applyFilters()" checked> Engels</label>
         <label class="filter-option"><input type="checkbox" value="informatica" onchange="applyFilters()" checked> Informatica</label>
@@ -322,7 +357,7 @@
         <label class="filter-option"><input type="checkbox" value="muziek" onchange="applyFilters()" checked> Muziek</label>
         <label class="filter-option"><input type="checkbox" value="oo" onchange="applyFilters()" checked> O&O</label>
         <label class="filter-option"><input type="checkbox" value="frans" onchange="applyFilters()" checked> Frans</label>
-        
+
         <div class="filter-actions">
             <button onclick="clearFilters()">Wis filters</button>
             <button onclick="closeFilterPanel()">Sluiten</button>
