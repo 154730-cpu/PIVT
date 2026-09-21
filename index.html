@@ -108,14 +108,9 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .filter-toggle .badge {
-            background-color: #4183c4;
-            color: white;
-            border-radius: 999px;
-            font-size: 11px;
-            padding: 1px 7px;
-            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 21px;
         }
         .filter-overlay {
             position: fixed;
@@ -192,6 +187,13 @@
             font-size: 16px;
             line-height: 1;
             border-radius: 50%;
+        }
+        .filter-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #333;
+            border-radius: 2px;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -336,8 +338,9 @@
 </head>
 <body>
     <button class="filter-toggle" onclick="toggleFilterPanel()">
-        Filters
-        <span class="badge" id="filterBadge"></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </button>
     <div class="filter-overlay" id="filterOverlay" onclick="closeFilterPanel()"></div>
     <div class="filter-panel" id="filterPanel">
