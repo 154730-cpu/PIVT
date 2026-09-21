@@ -188,14 +188,6 @@
             line-height: 1;
             border-radius: 50%;
         }
-        .filter-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: #ffffff;
-            border-radius: 2px;
-        }
-
         @media (prefers-color-scheme: dark) {
             body {
                 background-color: #121212;
@@ -338,9 +330,7 @@
 </head>
 <body>
     <button class="filter-toggle" onclick="toggleFilterPanel()">
-        <span></span>
-        <span></span>
-        <span></span>
+        <p>Filters</p>
     </button>
     <div class="filter-overlay" id="filterOverlay" onclick="closeFilterPanel()"></div>
     <div class="filter-panel" id="filterPanel">
