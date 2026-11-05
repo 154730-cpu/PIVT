@@ -1,10 +1,18 @@
 
 import { readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const template = await readFile("template.html", "utf8");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(__dirname, "..");
+
+const template = await readFile(
+  path.join(__dirname, "template.html"),
+  "utf8"
+);
 
 const websites = JSON.parse(
-  await readFile("list.json", "utf8")
+  await readFile(path.join(__dirname, "list.json"), "utf8")
 );
 
 function escapeHTML(value) {
@@ -31,18 +39,15 @@ const cards = websites.map(site => {
 </a>`;
 }).join("\n");
 
-// Check if the marker exists
 if (!template.includes("<!-- GENERATED-CARDS -->")) {
   throw new Error("Could not find GENERATED-CARDS marker!");
 }
 
-// Generate HTML
 const html = template.replace(
   "<!-- GENERATED-CARDS -->",
   cards
 );
 
-// Write directly to a.html
-await writeFile("a.html", html, "utf8");
+await writeFile(path.join(rootDir, "a.html"), html, "utf8");
 
 console.log(`Generated ${websites.length} cards in a.html!`);
