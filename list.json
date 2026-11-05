@@ -1,38 +1,102 @@
-[
+    "name": "Wiskundelokaal",
+    "url": "https://wiskundelokaal.nl/LLNopdrachtenMaken.php",
+    "tags": "WiB",
+    "style": ""
+  },
   {
-    "name": "Portaal",
-    "url": "https://janarentsz.sharepoint.com/sites/leerlingportaal",
+    "name": "Aura library",
+    "url": "https://ja.auralibrary.nl/ajspacex.aspx",
     "tags": "algemeen",
     "style": ""
   },
   {
-    "name": "ChatGPT",
-    "url": "https://chatgpt.com/",
-    "tags": "algemeen",
-    "style": "game"
-  },
-  {
-    "name": "YouTube",
-    "url": "https://www.youtube.com",
-    "tags": "algemeen",
+    "name": "Unicodes",
+    "url": "https://unicodes.jessetane.com/%C2%9F",
+    "tags": "informatica",
     "style": ""
   },
   {
-    "name": "Desmos",
-    "url": "https://www.desmos.com/calculator?lang=nl",
-    "tags": "WiB WiD",
+    "name": "Text Editor",
+    "url": "https://texteditor.co/",
+    "tags": "informatica",
     "style": ""
   },
   {
-    "name": "Crazygames",
-    "url": "https://crazygames.com",
+    "name": "Hypertranslate",
+    "url": "https://www.ravbug.com/hypertranslate/",
     "tags": "games",
-    "style": "game"
+    "style": ""
+  },
+  {
+    "name": "Pixilart",
+    "url": "https://www.pixilart.com/",
+    "tags": "games",
+    "style": ""
+  },
+  {
+    "name": "Thiememeulenhof",
+    "url": "https://edition.thiememeulenhoff.nl/secure/next/arrangement/interface_e4_v3?tab=contents",
+    "tags": "engels",
+    "style": "glitch"
+  },
+  {
+    "name": "Cumulus",
+    "url": "https://app.cumulus.co/klassen/52458",
+    "tags": "economie",
+    "style": ""
+  },
+  {
+    "name": "Biologiepagina",
+    "url": "https://biologiepagina.nl/",
+    "tags": "biologie",
+    "style": ""
+  },
+  {
+    "name": "Molview",
+    "url": "https://app.molview.com/",
+    "tags": "scheikunde",
+    "style": ""
+  },
+  {
+    "name": "Studygo",
+    "url": "https://studygo.com/nl/learn/books/1618/new-interface-onderbouw-lrn-line-(4e-editie)-3-vwo-4e-editie",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Woots",
+    "url": "https://app.woots.nl/",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "BandLab",
+    "url": "https://www.bandlab.com/feed/trending",
+    "tags": "muziek",
+    "style": ""
+  },
+  {
+    "name": "Catwise",
+    "url": "https://tool.catwise.nl/my-ratings",
+    "tags": "algemeen",
+    "style": ""
   },
   {
     "name": "Github",
     "url": "https://github.com/154730-cpu/PIVT/blob/main/index.html",
     "tags": "informatica",
     "style": "github"
+  },
+  {
+    "name": "Trello",
+    "url": "https://trello.com/nl",
+    "tags": "oo",
+    "style": ""
+  },
+  {
+    "name": "Verbuga",
+    "url": "https://www.verbuga.eu/Mise/Mise.html",
+    "tags": "frans",
+    "style": ""
   }
 ]
