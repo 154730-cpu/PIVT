@@ -1,3 +1,227 @@
+[
+  {
+    "name": "Portaal",
+    "url": "https://janarentsz.sharepoint.com/sites/leerlingportaal",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "ChatGPT",
+    "url": "https://chatgpt.com/",
+    "tags": "algemeen",
+    "style": "game"
+  },
+  {
+    "name": "Youtube",
+    "url": "https://www.youtube.com",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Outlook",
+    "url": "https://outlook.office.com/mail/",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Teams",
+    "url": "https://teams.cloud.microsoft/",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Word",
+    "url": "https://word.cloud.microsoft/?wdOrigin=SHAREPOINT.SHELL",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "PowerPoint",
+    "url": "https://www.microsoft365.com/launch/powerpoint?auth=2",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Forms",
+    "url": "https://forms.office.com/Pages/DesignPageV2.aspx?origin=Marketing",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Excel",
+    "url": "https://www.microsoft365.com/launch/excel?auth=2",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Docs",
+    "url": "https://docs.google.com/document/u/0/?tgif=c",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Presentaties",
+    "url": "https://docs.google.com/presentation/u/0/?ec=wgc-slides-globalnav-goto&tgif=d",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Magister",
+    "url": "https://ja.magister.net/magister/#/vandaag",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "iA",
+    "url": "https://moodle.informatica-actief.nl/",
+    "tags": "informatica",
+    "style": ""
+  },
+  {
+    "name": "LessonUp",
+    "url": "https://lessonup.app/",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Blooket",
+    "url": "https://dashboard.blooket.com/my-sets",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Kahoot",
+    "url": "https://kahoot.it/",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Quizlet",
+    "url": "https://quizlet.com/latest",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Desmos",
+    "url": "https://www.desmos.com/calculator?lang=nl",
+    "tags": "WiB WiD",
+    "style": ""
+  },
+  {
+    "name": "Tinkercad",
+    "url": "https://www.tinkercad.com/dashboard",
+    "tags": "oo",
+    "style": ""
+  },
+  {
+    "name": "IFrame",
+    "url": "https://154730-cpu.github.io/PIVT/IFrame_v1.5.5.html",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Pomodoro",
+    "url": "https://154730-cpu.github.io/PIVT/Pomodoro_v1.0.html",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "QRCode",
+    "url": "https://154730-cpu.github.io/PIVT/QRcode_v1.3.html",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Canva",
+    "url": "https://www.canva.com/",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Crazygames",
+    "url": "https://crazygames.com",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Poki",
+    "url": "https://poki.com/nl",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Gartic Phone",
+    "url": "https://garticphone.com/nl",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Openfront",
+    "url": "https://openfront.io/",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Shell Shockers",
+    "url": "https://shellshock.io/",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Rocket bot",
+    "url": "https://rocketbotroyale2.winterpixel.io/",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Inf Craft",
+    "url": "https://neal.fun/infinite-craft/",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Chess.com",
+    "url": "https://www.chess.com/play/computer",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Scratch",
+    "url": "https://scratch.mit.edu/explore/projects/all",
+    "tags": "games informatica",
+    "style": "game"
+  },
+  {
+    "name": "Territorial",
+    "url": "https://territorial.io/",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Castle",
+    "url": "https://castle.xyz/@krokogames",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Python",
+    "url": "https://www.online-python.com/",
+    "tags": "informatica",
+    "style": ""
+  },
+  {
+    "name": "Numworks",
+    "url": "https://my.numworks.com/python/",
+    "tags": "WiB WiD",
+    "style": ""
+  },
+  {
+    "name": "Noordhof/WiD",
+    "url": "https://apps.noordhoff.nl/my/nl/bookshelf?redirectPath=%2F&redirectPlatform=sep",
+    "tags": "WiD",
+    "style": ""
+  },
+  {
     "name": "Wiskundelokaal",
     "url": "https://wiskundelokaal.nl/LLNopdrachtenMaken.php",
     "tags": "WiB",
