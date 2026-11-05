@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>PortaalVT</title>
+    <link rel="icon" href="logoP.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .game {
+            background-color: #0D7634;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }  
+        .glitch {
+            background-color: #76340D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        .github {
+            background-color: #4183c4;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+        }
+        p {
+            padding: 0;
+            border-radius: 0;
+        }
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        input[type="text"]{
+            background-color: #f4f4f4;
+            color: #000000;
+            outline: none;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            padding: 30px;
+            font-size: 32px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+        input[type="text"]::placeholder {
+            font-weight: bold;
+        }
+        /* --- Filter button + panel --- */
+        .filter-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            width: auto;
+            padding: 10px 14px;
+            font-size: 14px;
+            border-radius: 6px;
+            background-color: #333333;
+            color: white;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-toggle .badge {
+            background-color: #4183c4;
+            color: white;
+            border-radius: 999px;
+            font-size: 11px;
+            padding: 1px 7px;
+            display: none;
+        }
+        .filter-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 99;
+            display: none;
+        }
+        .filter-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 260px;
+            max-width: 85vw;
+            background-color: #ffffff;
+            color: #333333;
+            box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+            z-index: 101;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.25s ease;
+        }
+        .filter-panel.open {
+            transform: translateX(0);
+        }
+        .filter-overlay.open {
+            display: block;
+        }
+        .filter-panel h2 {
+            font-size: 18px;
+            margin: 0 0 4px 0;
+        }
+        .filter-panel .sub {
+            font-size: 12px;
+            color: #777777;
+            margin: 0 0 16px 0;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .filter-actions button {
+            font-size: 13px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .filter-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1;
+            border-radius: 50%;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            button {
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+            .glitch {
+                background-color: #8a3f1f;
+                color: #ffffff;
+            }
+            .game {
+                background-color: #1f8a4c;
+                color: #ffffff;
+            }
+            .github {
+                background-color: #4183c4;
+                color: #000000;
+            }
+            input[type="text"] {
+                background-color: #121212;
+                color: #ffffff;
+            }
+            .filter-toggle {
+                background-color: #2a2a2a;
+                color: #ffffff;
+            }
+            .filter-panel {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            .filter-panel .sub {
+                color: #999999;
+            }
+            .filter-option {
+                border-bottom: 1px solid #2c2c2c;
+            }
+        }
+    </style>
+    <script>
+        window.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key.toLowerCase() === 'h') {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+            }
+        }, true);
+
+        function search() {
+            applyFilters();
+        }
+
+        function getSelectedCategories() {
+            const boxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+            const selected = [];
+            boxes.forEach(box => {
+                if (box.checked) selected.push(box.value);
+            });
+            return selected;
+        }
+
+        function saveFilters() {
+            const selected = getSelectedCategories();
+            try {
+                localStorage.setItem('portaalvt_filters', JSON.stringify(selected));
+            } catch (e) {
+                // localStorage unavailable (private browsing etc.) - fail silently
+            }
+        }
+
+        function loadFilters() {
+            let saved = null;
+            try {
+                saved = localStorage.getItem('portaalvt_filters');
+            } catch (e) {
+                saved = null;
+            }
+            if (saved === null) return; // nothing saved yet, keep default (all checked)
+
+            let selected;
+            try {
+                selected = JSON.parse(saved);
+            } catch (e) {
+                return;
+            }
+            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(box => {
+                box.checked = selected.includes(box.value);
+            });
+        }
+
+        function applyFilters() {
+            const query = document.getElementById("text").value.toLowerCase();
+            const selected = getSelectedCategories();
+            const totalCategories = document.querySelectorAll('.filter-option input[type="checkbox"]').length;
+            const links = document.querySelectorAll(".grid a");
+
+            links.forEach(link => {
+                const text = link.innerText.toLowerCase();
+                const tags = (link.dataset.tags || "").split(" ");
+                const matchesSearch = text.includes(query);
+                const matchesFilter = selected.length === 0 || selected.some(cat => tags.includes(cat));
+
+                link.style.display = (matchesSearch && matchesFilter) ? "" : "none";
+            });
+
+            saveFilters();
+        }
+
+        function updateBadge(count) {
+            const badge = document.getElementById("filterBadge");
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = "inline-block";
+            } else {
+                badge.style.display = "none";
+            }
+        }
+
+        function toggleFilterPanel() {
+            document.getElementById("filterPanel").classList.toggle("open");
+            document.getElementById("filterOverlay").classList.toggle("open");
+        }
+
+        function closeFilterPanel() {
+            document.getElementById("filterPanel").classList.remove("open");
+            document.getElementById("filterOverlay").classList.remove("open");
+        }
+
+        function clearFilters() {
+            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(box => box.checked = true);
+            applyFilters();
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            loadFilters();
+            applyFilters();
+        });
+    </script>
+</head>
+<body>
+    <button class="filter-toggle" onclick="toggleFilterPanel()">
+        Filters
+        <span class="badge" id="filterBadge"></span>
+    </button>
+    <div class="filter-overlay" id="filterOverlay" onclick="closeFilterPanel()"></div>
+    <div class="filter-panel" id="filterPanel">
+        <button class="filter-close" onclick="closeFilterPanel()">&times;</button>
+        <h2>Filter op vak</h2>
+        <p class="sub">Selecteer een of meer vakken om alleen de bijbehorende knoppen te tonen.</p>
+
+        <label class="filter-option"><input type="checkbox" value="WiB" onchange="applyFilters()" checked> WiB</label>
+        <label class="filter-option"><input type="checkbox" value="nederlands" onchange="applyFilters()" checked> Nederlands</label>
+        <label class="filter-option"><input type="checkbox" value="biologie" onchange="applyFilters()" checked> Biologie</label>
+        <label class="filter-option"><input type="checkbox" value="scheikunde" onchange="applyFilters()" checked> Scheikunde</label>
+        <label class="filter-option"><input type="checkbox" value="engels" onchange="applyFilters()" checked> Engels</label>
+        <label class="filter-option"><input type="checkbox" value="informatica" onchange="applyFilters()" checked> Informatica</label>
+        <label class="filter-option"><input type="checkbox" value="economie" onchange="applyFilters()" checked> Economie</label>
+        <label class="filter-option"><input type="checkbox" value="WiD" onchange="applyFilters()" checked> WiD</label>
+        <label class="filter-option"><input type="checkbox" value="games" onchange="applyFilters()" checked> Games</label>
+        <label class="filter-option"><input type="checkbox" value="algemeen" onchange="applyFilters()" checked> Algemeen</label>
+        <label class="filter-option"><input type="checkbox" value="muziek" onchange="applyFilters()" checked> Muziek</label>
+        <label class="filter-option"><input type="checkbox" value="oo" onchange="applyFilters()" checked> O&O</label>
+        <label class="filter-option"><input type="checkbox" value="frans" onchange="applyFilters()" checked> Frans</label>
+
+        <div class="filter-actions">
+            <button onclick="clearFilters()">Wis filters</button>
+            <button onclick="closeFilterPanel()">Sluiten</button>
+        </div>
+    </div>
+
+    <input type="text" id="text" placeholder="PortaalVT" oninput="search()">
+    <div class="grid">
+        <!-- GENERATED-CARDS -->
+    </div>
+    <p>By using PortaalVT, you acknowlege and agree to the <a href="https://github.com/154730-cpu/PIVT/blob/main/TERMS_AND_CONDITIONS.md" target="_blank">Terms and Conditions.</a></p>
+    <p>PortaalVT is provided on a best-effort basis. We do not guarantee that the service will be available at all times and reserve the right to modify, suspend, or discontinue any part of the service without notice.</p>
+    <a href="mailto:154730@edu.ja.nl?subject=Portaal Knop Suggestie">Klik hier om een suggestie te doen</a>
+</body>
+</html>
