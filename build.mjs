@@ -1,12 +1,12 @@
 import { readFile, writeFile } from "node:fs/promises";
 
 const template = await readFile(
-  "index.template.html",
+  "a.html",
   "utf8"
 );
 
 const websites = JSON.parse(
-  await readFile("websites.json", "utf8")
+  await readFile("list.json", "utf8")
 );
 
 function escapeHTML(value) {
