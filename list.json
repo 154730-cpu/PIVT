@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Portaal",
+    "url": "https://janarentsz.sharepoint.com/sites/leerlingportaal",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "ChatGPT",
+    "url": "https://chatgpt.com/",
+    "tags": "algemeen",
+    "style": "game"
+  },
+  {
+    "name": "YouTube",
+    "url": "https://www.youtube.com",
+    "tags": "algemeen",
+    "style": ""
+  },
+  {
+    "name": "Desmos",
+    "url": "https://www.desmos.com/calculator?lang=nl",
+    "tags": "WiB WiD",
+    "style": ""
+  },
+  {
+    "name": "Crazygames",
+    "url": "https://crazygames.com",
+    "tags": "games",
+    "style": "game"
+  },
+  {
+    "name": "Github",
+    "url": "https://github.com/154730-cpu/PIVT/blob/main/index.html",
+    "tags": "informatica",
+    "style": "github"
+  }
+]
