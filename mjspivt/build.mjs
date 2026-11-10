@@ -48,6 +48,6 @@ const html = template.replace(
   cards
 );
 
-await writeFile(path.join(rootDir, "a.html"), html, "utf8");
+await writeFile(path.join(rootDir, "index.html"), html, "utf8");
 
-console.log(`Generated ${websites.length} cards in a.html!`);
+console.log(`Generated ${websites.length} cards in index.html!`);
