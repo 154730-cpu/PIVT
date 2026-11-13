@@ -90,6 +90,12 @@
         margin: 20px auto;
     }
 
+    iframe {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    }
+
     @media (prefers-color-scheme: dark) {
         body {
             background-color: #121212;
@@ -144,26 +150,27 @@
       placeholder="Enter IFrame URL"
     >
 
+    
     <div class="favicon-buttons">
-      <button class="favicon-button" data-favicon="teams" aria-label="Teams favicon">
-        <img src="favicons/teams.png" alt="Teams">
-      </button>
+    <button class="favicon-button" data-favicon="magister" aria-label="Magister">
+        <img src="favicons/Magister.png" alt="Magister">
+    </button>
 
-      <button class="favicon-button" data-favicon="outlook" aria-label="Outlook favicon">
+    <button class="favicon-button" data-favicon="outlook" aria-label="Outlook">
         <img src="favicons/outlook.png" alt="Outlook">
-      </button>
+    </button>
 
-      <button class="favicon-button" data-favicon="original" aria-label="Original favicon">
+    <button class="favicon-button" data-favicon="tinkercad" aria-label="Tinkercad">
+        <img src="favicons/tinkercad.png" alt="Tinkercad">
+    </button>
+
+    <button class="favicon-button" data-favicon="word" aria-label="Word">
+        <img src="favicons/Word.png" alt="Word">
+    </button>
+
+    <button class="favicon-button" data-favicon="original" aria-label="Original">
         <img src="favicons/logoI.png" alt="Original">
-      </button>
-
-      <button class="favicon-button" data-favicon="word" aria-label="Word favicon">
-        <img src="favicons/word.png" alt="Word">
-      </button>
-
-      <button class="favicon-button" data-favicon="chrome" aria-label="Chrome favicon">
-        <img src="favicons/chrome.png" alt="Chrome">
-      </button>
+    </button>
     </div>
   </div>
 
@@ -176,11 +183,11 @@
 
   <script>
     const faviconChoices = {
-      teams: "favicons/teams.png",
-      outlook: "favicons/outlook.png",
-      original: "favicons/logoI.png",
-      word: "favicons/word.png",
-      chrome: "favicons/chrome.png"
+        magister: "favicons/Magister.png",
+        outlook: "favicons/outlook.png",
+        tinkercad: "favicons/tinkercad.png",
+        word: "favicons/Word.png",
+        original: "favicons/logoI.png"
     };
 
     const faviconElement = document.getElementById("favicon");
