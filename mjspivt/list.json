@@ -115,19 +115,19 @@
   },
   {
     "name": "IFrame",
-    "url": "https://154730-cpu.github.io/PIVT/IFrame_v1.5.5.html",
+    "url": "https://154730-cpu.github.io/PIVT/iframe2.html",
     "tags": "algemeen",
     "style": ""
   },
   {
     "name": "Pomodoro",
-    "url": "https://154730-cpu.github.io/PIVT/Pomodoro_v1.0.html",
+    "url": "https://154730-cpu.github.io/PIVT/pomodoro.html",
     "tags": "algemeen",
     "style": ""
   },
   {
     "name": "QRCode",
-    "url": "https://154730-cpu.github.io/PIVT/QRcode_v1.3.html",
+    "url": "https://154730-cpu.github.io/PIVT/qrcode.html",
     "tags": "algemeen",
     "style": ""
   },
@@ -321,6 +321,12 @@
     "name": "Verbuga",
     "url": "https://www.verbuga.eu/Mise/Mise.html",
     "tags": "frans",
+    "style": ""
+  },
+  {
+    "name": "BeatsNbits",
+    "url": "https://www.beatsnbits.nl/login.php",
+    "tags": "muziek",
     "style": ""
   }
 ]
